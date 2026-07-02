@@ -1,0 +1,109 @@
+'use client'
+
+import { useState, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
+import { api } from '@/lib/api'
+
+export default function NuevoExpedientePage() {
+  const router = useRouter()
+  const [form, setForm] = useState({
+    numero: '',
+    cliente_id: '',
+    juzgado: '',
+    tipo: '',
+  })
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setError('')
+    if (!form.numero || !form.cliente_id) {
+      setError('Número y Cliente son obligatorios')
+      return
+    }
+    setSaving(true)
+    try {
+      const exp = await api.expedientes.create({
+        ...form,
+        cliente_id: Number(form.cliente_id),
+        partes: [],
+      })
+      router.push(`/expedientes/${exp.id}`)
+    } catch (err: any) {
+      setError(err.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="max-w-2xl">
+      <button onClick={() => router.push('/expedientes')} className="text-sm text-gov-muted hover:text-gov-blue mb-4 block">
+        ← Volver
+      </button>
+      <h1 className="text-2xl font-bold mb-6">Nuevo Expediente</h1>
+
+      <div className="card p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Número de Expediente *</label>
+            <input
+              className="input-field"
+              placeholder="Ej: EXP-006"
+              value={form.numero}
+              onChange={(e) => setForm({ ...form, numero: e.target.value })}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">ID del Cliente *</label>
+            <input
+              type="number"
+              className="input-field"
+              placeholder="Ej: 1"
+              value={form.cliente_id}
+              onChange={(e) => setForm({ ...form, cliente_id: e.target.value })}
+              required
+            />
+            <p className="text-xs text-gov-muted mt-1">Revisa la lista de clientes para obtener el ID</p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Juzgado</label>
+            <input
+              className="input-field"
+              placeholder="Ej: 3° Civil, Toluca"
+              value={form.juzgado}
+              onChange={(e) => setForm({ ...form, juzgado: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Tipo</label>
+            <input
+              className="input-field"
+              placeholder="Ej: Juicio Ordinario Civil"
+              value={form.tipo}
+              onChange={(e) => setForm({ ...form, tipo: e.target.value })}
+            />
+          </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3">{error}</div>
+          )}
+
+          <div className="flex gap-3 pt-2">
+            <button type="submit" className="btn-primary" disabled={saving}>
+              {saving ? 'Guardando...' : 'Crear Expediente'}
+            </button>
+            <button type="button" className="btn-secondary" onClick={() => router.push('/expedientes')}>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
