@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { getUser, hasRole } from '@/lib/auth'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { LayoutDashboard, FolderKanban, Users } from 'lucide-react'
 
 const ALL_LINKS = [
@@ -15,8 +15,14 @@ const ALL_LINKS = [
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname()
   const router = useRouter()
-  const user = getUser()
+  const [mounted, setMounted] = useState(false)
+  const [user, setUser] = useState(getUser())
   const links = useMemo(() => ALL_LINKS.filter((l) => hasRole(l.minRole)), [])
+
+  useEffect(() => {
+    setMounted(true)
+    setUser(getUser())
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
@@ -47,21 +53,27 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
       </nav>
 
       <div className="p-4 border-t border-primary-600">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-sm font-bold shrink-0">
-            {user?.nombre?.charAt(0) || 'U'}
-          </div>
-          <div className="min-w-0">
-            <div className="text-sm truncate">{user?.nombre || 'Usuario'}</div>
-            <div className="text-[11px] text-blue-200 capitalize">{user?.rol || ''}</div>
-          </div>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="mt-3 text-xs text-blue-200 hover:text-white transition-colors w-full text-left"
-        >
-          Cerrar sesión
-        </button>
+        {mounted ? (
+          <>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-sm font-bold shrink-0">
+                {user?.nombre?.charAt(0) || 'U'}
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm truncate">{user?.nombre || 'Usuario'}</div>
+                <div className="text-[11px] text-blue-200 capitalize">{user?.rol || ''}</div>
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="mt-3 text-xs text-blue-200 hover:text-white transition-colors w-full text-left"
+            >
+              Cerrar sesión
+            </button>
+          </>
+        ) : (
+          <div className="h-[72px]" />
+        )}
       </div>
     </>
   )
