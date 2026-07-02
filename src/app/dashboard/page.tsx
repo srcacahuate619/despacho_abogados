@@ -81,22 +81,15 @@ export default function DashboardPage() {
         <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
           <h3 className="font-semibold text-sm md:text-base mb-4">📊 Casos por Tipo</h3>
           {data?.casos_por_tipo?.length ? (
-            <div className="space-y-3">
-              {data.casos_por_tipo.map((t: any, i: number) => {
-                const total = data?.total_expedientes || 1
-                const pct = Math.round((t.count / total) * 100)
-                return (
-                  <div key={i}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="truncate">{t.tipo}</span>
-                      <span className="font-medium">{t.count}</span>
-                    </div>
-                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-gov-blue rounded-full transition-all" style={{ width: `${pct}%` }} />
-                    </div>
-                  </div>
-                )
-              })}
+            <div className="flex flex-wrap gap-2">
+              {data.casos_por_tipo.map((t: any, i: number) => (
+                <div key={i} className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gov-border">
+                  <span className="text-sm font-medium">{t.tipo}</span>
+                  <span className="text-xs font-bold text-white bg-gov-blue rounded-full px-2 py-0.5 min-w-[24px] text-center">
+                    {t.count}
+                  </span>
+                </div>
+              ))}
             </div>
           ) : <p className="text-sm text-gov-muted py-4 text-center">Sin datos</p>}
         </div>
