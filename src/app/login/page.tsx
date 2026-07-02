@@ -15,7 +15,6 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
     try {
       const res = await api.login(email, password)
       localStorage.setItem('token', res.access_token)
@@ -30,18 +29,18 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gov-blue to-primary-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">LegalDesk</h1>
-          <p className="text-blue-200 mt-2">Sistema de Gestión de Expedientes</p>
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-white">LegalDesk</h1>
+          <p className="text-blue-200 text-sm mt-1">Sistema de Gestión de Expedientes</p>
         </div>
 
-        <div className="card p-8">
-          <h2 className="text-xl font-semibold mb-6">Iniciar Sesión</h2>
+        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+          <h2 className="text-lg font-semibold mb-5">Iniciar Sesión</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gov-muted mb-1">
+              <label className="block text-sm font-medium text-gov-muted mb-1.5">
                 Correo electrónico
               </label>
               <input
@@ -51,11 +50,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gov-muted mb-1">
+              <label className="block text-sm font-medium text-gov-muted mb-1.5">
                 Contraseña
               </label>
               <input
@@ -65,6 +65,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="current-password"
               />
             </div>
 
@@ -76,7 +77,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="btn-primary w-full py-2.5 disabled:opacity-50"
+              className="btn-primary w-full py-3 text-base"
               disabled={loading}
             >
               {loading ? 'Entrando...' : 'Entrar'}
@@ -84,7 +85,7 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-blue-300 text-xs mt-6">
+        <p className="text-center text-blue-300 text-[11px] mt-6">
           &copy; 2026 LegalDesk. Acceso restringido.
         </p>
       </div>

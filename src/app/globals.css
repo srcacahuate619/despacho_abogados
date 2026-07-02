@@ -23,15 +23,19 @@ body {
 }
 
 .btn-primary {
-  @apply bg-gov-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors;
+  @apply bg-gov-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .btn-secondary {
-  @apply border border-gov-border text-gov-text px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors;
+  @apply border border-gov-border text-gov-text px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors disabled:opacity-50;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors;
 }
 
 .input-field {
-  @apply w-full border border-gov-border rounded-lg px-3 py-2 text-sm outline-none focus:border-gov-blue focus:ring-1 focus:ring-gov-blue transition-colors;
+  @apply w-full border border-gov-border rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gov-blue focus:ring-1 focus:ring-gov-blue transition-colors;
 }
 
 .badge {
@@ -52,4 +56,52 @@ body {
 
 .badge-archivado {
   @apply badge bg-red-100 text-red-800;
+}
+
+@media (max-width: 767px) {
+  .card {
+    @apply border-0 shadow-none;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .hide-desktop {
+    display: none !important;
+  }
+
+  .show-desktop {
+    display: flex !important;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
 }
