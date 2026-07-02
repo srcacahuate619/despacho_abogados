@@ -3,17 +3,19 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { getUser, hasRole } from '@/lib/auth'
+import { useMemo } from 'react'
 
-const links = [
+const ALL_LINKS = [
   { href: '/dashboard', label: 'Dashboard', icon: '📊', minRole: 'consultor' as const },
   { href: '/expedientes', label: 'Expedientes', icon: '📁', minRole: 'consultor' as const },
   { href: '/clientes', label: 'Clientes', icon: '👥', minRole: 'consultor' as const },
-].filter((l) => hasRole(l.minRole))
+]
 
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname()
   const router = useRouter()
   const user = getUser()
+  const links = useMemo(() => ALL_LINKS.filter((l) => hasRole(l.minRole)), [])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
