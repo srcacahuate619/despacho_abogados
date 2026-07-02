@@ -83,10 +83,30 @@ export default function LoginPage() {
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
+
+          <details className="mt-6 group">
+            <summary className="text-xs text-gov-muted cursor-pointer hover:text-gov-blue transition-colors select-none">
+              Credenciales de prueba
+            </summary>
+            <div className="mt-3 space-y-2 text-xs text-gov-muted bg-gray-50 rounded-lg p-3">
+              <div className="flex justify-between">
+                <span>Admin</span>
+                <span className="text-right font-mono">admin@despacho.com / admin123</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Abogado</span>
+                <span className="text-right font-mono">abogado@despacho.com / abogado123</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Consultor</span>
+                <span className="text-right font-mono">consulta@despacho.com / consulta123</span>
+              </div>
+            </div>
+          </details>
         </div>
 
         <p className="text-center text-blue-300 text-[11px] mt-6">
-          &copy; 2026 LegalDesk. Acceso restringido.
+          LegalDesk v1.0 &mdash; Acceso restringido
         </p>
       </div>
     </div>
