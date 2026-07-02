@@ -5,6 +5,12 @@ function getToken(): string | null {
   return null
 }
 
+function signedUrl(path: string): string {
+  const token = getToken()
+  const sep = path.includes('?') ? '&' : '?'
+  return `${API}${path}${token ? `${sep}token=${encodeURIComponent(token)}` : ''}`
+}
+
 async function request(path: string, options: RequestInit = {}) {
   const token = getToken()
   const headers: Record<string, string> = {
@@ -69,7 +75,7 @@ export const api = {
       request(`/api/expedientes/${id}/usuarios?usuario_id=${usuarioId}`, { method: 'POST' }),
     remover: (id: number, usuarioId: number) =>
       request(`/api/expedientes/${id}/usuarios/${usuarioId}`, { method: 'DELETE' }),
-    downloadUrl: (id: number) => `${API}/api/expedientes/${id}/download`,
+    downloadUrl: (id: number) => signedUrl(`/api/expedientes/${id}/download`),
     notas: {
       list: (id: number) => request(`/api/expedientes/${id}/notas`),
       create: (id: number, contenido: string) =>
@@ -106,7 +112,7 @@ export const api = {
         body: form,
       })
     },
-    downloadUrl: (id: number) => `${API}/api/documentos/${id}/descargar`,
+    downloadUrl: (id: number) => signedUrl(`/api/documentos/${id}/descargar`),
   },
 
   dashboard: {
