@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { getUser, hasRole } from '@/lib/auth'
 import { useMemo } from 'react'
+import { LayoutDashboard, FolderKanban, Users } from 'lucide-react'
 
 const ALL_LINKS = [
-  { href: '/dashboard', label: 'Dashboard', icon: '📊', minRole: 'consultor' as const },
-  { href: '/expedientes', label: 'Expedientes', icon: '📁', minRole: 'consultor' as const },
-  { href: '/clientes', label: 'Clientes', icon: '👥', minRole: 'consultor' as const },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, minRole: 'consultor' as const },
+  { href: '/expedientes', label: 'Expedientes', icon: FolderKanban, minRole: 'consultor' as const },
+  { href: '/clientes', label: 'Clientes', icon: Users, minRole: 'consultor' as const },
 ]
 
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -39,7 +40,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
             onClick={onClose}
             className={`sidebar-link ${pathname.startsWith(link.href) ? 'active' : ''}`}
           >
-            <span className="text-lg">{link.icon}</span>
+            <link.icon className="w-5 h-5 shrink-0" />
             <span>{link.label}</span>
           </Link>
         ))}

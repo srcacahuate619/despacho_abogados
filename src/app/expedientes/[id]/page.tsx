@@ -7,6 +7,7 @@ import { useToast } from '@/components/Toast'
 import { CardSkeleton } from '@/components/Skeleton'
 import { RoleGate } from '@/components/RoleGate'
 import { isAdmin, getUser } from '@/lib/auth'
+import { Download, X, FileText, Phone, Mail, MapPin, Plus, Calendar, MessageSquareText } from 'lucide-react'
 
 interface Detail {
   id: number; numero: string
@@ -120,7 +121,7 @@ export default function ExpedienteDetailPage() {
           <button onClick={() => router.push('/expedientes')} className="text-xs md:text-sm text-gov-muted hover:text-gov-blue mb-1 block">← Volver</button>
           <h1 className="text-xl md:text-2xl font-bold flex items-center gap-3 flex-wrap">
             {exp.numero}
-            <a href={api.expedientes.downloadUrl(exp.id)} className="text-xs btn-secondary py-1 px-2" target="_blank">⬇ Descargar PDF</a>
+            <a href={api.expedientes.downloadUrl(exp.id)} className="text-xs btn-secondary py-1 px-2 inline-flex items-center gap-1" target="_blank"><Download className="w-3 h-3" /> Descargar PDF</a>
           </h1>
         </div>
         <span className={badgeClass(exp.estatus)}>{exp.estatus}</span>
@@ -166,7 +167,7 @@ export default function ExpedienteDetailPage() {
                       <span className={`badge text-xs ${fechaBadge(f.tipo)}`}>{f.tipo}</span>
                       <span className="text-sm text-gov-muted truncate">{f.descripcion || ''}</span>
                     </div>
-                    <RoleGate role="admin"><button onClick={() => delFecha(f.id)} className="text-xs text-red-500 hover:text-red-700 shrink-0 ml-2">✕</button></RoleGate>
+                    <RoleGate role="admin"><button onClick={() => delFecha(f.id)} className="text-xs text-red-500 hover:text-red-700 shrink-0 ml-2"><X className="w-3 h-3" /></button></RoleGate>
                   </div>
                 ))}
               </div>
@@ -224,7 +225,7 @@ export default function ExpedienteDetailPage() {
                 {exp.documentos.map((d: any) => (
                   <li key={d.id} className="py-3 flex items-center justify-between">
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="shrink-0">📄</span>
+                      <FileText className="w-4 h-4 shrink-0 text-gov-muted" />
                       <div className="min-w-0"><p className="text-sm font-medium truncate">{d.nombre}</p><p className="text-xs text-gov-muted">{new Date(d.subido_en).toLocaleDateString()}</p></div>
                     </div>
                     <a href={api.documentos.downloadUrl(d.id)} className="text-sm text-gov-blue hover:underline shrink-0 ml-2" target="_blank">Descargar</a>
@@ -261,9 +262,9 @@ export default function ExpedienteDetailPage() {
           <Section title="Cliente">
             <div className="space-y-2 text-sm">
               <p className="font-medium">{exp.cliente.nombre}</p>
-              {exp.cliente.telefono && <p className="text-gov-muted text-xs">📞 {exp.cliente.telefono}</p>}
-              {exp.cliente.email && <p className="text-gov-muted text-xs">✉️ {exp.cliente.email}</p>}
-              {exp.cliente.direccion && <p className="text-gov-muted text-xs">📍 {exp.cliente.direccion}</p>}
+              {exp.cliente.telefono && <p className="text-gov-muted text-xs flex items-center gap-1"><Phone className="w-3 h-3" /> {exp.cliente.telefono}</p>}
+              {exp.cliente.email && <p className="text-gov-muted text-xs flex items-center gap-1"><Mail className="w-3 h-3" /> {exp.cliente.email}</p>}
+              {exp.cliente.direccion && <p className="text-gov-muted text-xs flex items-center gap-1"><MapPin className="w-3 h-3" /> {exp.cliente.direccion}</p>}
             </div>
           </Section>
 
@@ -276,7 +277,7 @@ export default function ExpedienteDetailPage() {
                       <span className="font-medium block truncate">{u.nombre}</span>
                       <span className="text-xs text-gov-muted capitalize">{u.rol}</span>
                     </div>
-                    <RoleGate role="admin"><button onClick={() => handleRemove(u.id, u.nombre)} className="text-xs text-red-500 hover:text-red-700 ml-2 shrink-0">✕</button></RoleGate>
+                    <RoleGate role="admin"><button onClick={() => handleRemove(u.id, u.nombre)} className="text-xs text-red-500 hover:text-red-700 ml-2 shrink-0"><X className="w-3 h-3" /></button></RoleGate>
                   </li>
                 ))}
               </ul>

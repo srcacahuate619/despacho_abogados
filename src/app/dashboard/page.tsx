@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { api } from '@/lib/api'
 import { CardSkeleton } from '@/components/Skeleton'
 import { RoleGate } from '@/components/RoleGate'
+import { CalendarClock, BarChart3, Activity, FolderKanban, Plus, Users } from 'lucide-react'
 
 interface DashboardData {
   total_expedientes: number; activos: number; concluidos: number; suspendidos: number
@@ -56,7 +57,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
         {/* PRÓXIMOS VENCIMIENTOS */}
         <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4">📅 Próximos Vencimientos</h3>
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><CalendarClock className="w-4 h-4" /> Próximos Vencimientos</h3>
           {data?.proximos_vencimientos?.length ? (
             <div className="space-y-3">
               {data.proximos_vencimientos.map((v: any, i: number) => (
@@ -79,7 +80,7 @@ export default function DashboardPage() {
 
         {/* CASOS POR TIPO */}
         <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4">📊 Casos por Tipo</h3>
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><BarChart3 className="w-4 h-4" /> Casos por Tipo</h3>
           {data?.casos_por_tipo?.length ? (
             <div className="flex flex-wrap gap-2">
               {data.casos_por_tipo.map((t: any, i: number) => (
@@ -97,7 +98,7 @@ export default function DashboardPage() {
 
       {/* ACTIVIDAD RECIENTE */}
       <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-        <h3 className="font-semibold text-sm md:text-base mb-4">⚡ Actividad Reciente</h3>
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><Activity className="w-4 h-4" /> Actividad Reciente</h3>
         {data?.ultimos_movimientos?.length ? (
           <div className="divide-y divide-gov-border">
             {data.ultimos_movimientos.map((m: any, i: number) => (
@@ -116,17 +117,17 @@ export default function DashboardPage() {
       {/* ACCESO RÁPIDO */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link href="/expedientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-          <span className="font-medium text-sm">📁 Ver Expedientes</span>
+          <span className="font-medium text-sm flex items-center gap-2"><FolderKanban className="w-4 h-4" /> Ver Expedientes</span>
           <p className="text-xs text-gov-muted mt-0.5">Lista completa</p>
         </Link>
         <RoleGate role="abogado">
           <Link href="/expedientes/nuevo" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-            <span className="font-medium text-sm">➕ Nuevo Expediente</span>
+            <span className="font-medium text-sm flex items-center gap-2"><Plus className="w-4 h-4" /> Nuevo Expediente</span>
             <p className="text-xs text-gov-muted mt-0.5">Registrar un caso</p>
           </Link>
         </RoleGate>
         <Link href="/clientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-          <span className="font-medium text-sm">👥 Clientes</span>
+          <span className="font-medium text-sm flex items-center gap-2"><Users className="w-4 h-4" /> Clientes</span>
           <p className="text-xs text-gov-muted mt-0.5">Directorio</p>
         </Link>
       </div>
