@@ -7,14 +7,11 @@ import { CardSkeleton } from '@/components/Skeleton'
 import { RoleGate } from '@/components/RoleGate'
 
 interface DashboardData {
-  total_expedientes: number
-  activos: number
-  concluidos: number
-  suspendidos: number
-  total_clientes: number
-  total_documentos: number
-  vencimientos_proximos: any[]
+  total_expedientes: number; activos: number; concluidos: number; suspendidos: number
+  total_clientes: number; total_documentos: number
+  casos_por_tipo: { tipo: string; count: number }[]
   ultimos_movimientos: any[]
+  proximos_vencimientos: any[]
 }
 
 export default function DashboardPage() {
@@ -27,10 +24,8 @@ export default function DashboardPage() {
 
   if (loading) return (
     <div>
-      <SkeletonHeader />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
-        {Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)}
-      </div>
+      <div className="mb-6 md:mb-8 animate-pulse"><div className="h-7 md:h-8 bg-gray-200 rounded w-48 mb-2" /><div className="h-4 bg-gray-200 rounded w-64" /></div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">{Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)}</div>
     </div>
   )
 
@@ -48,6 +43,7 @@ export default function DashboardPage() {
         <p className="text-gov-muted text-xs md:text-sm mt-1">Resumen general del despacho</p>
       </div>
 
+      {/* STAT CARDS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         {stats.map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
@@ -57,54 +53,90 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+        {/* PRÓXIMOS VENCIMIENTOS */}
         <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4">Actividad Reciente</h3>
-          {data?.ultimos_movimientos?.length ? (
-            <ul className="space-y-3">
-              {data.ultimos_movimientos.slice(0, 5).map((m: any, i: number) => (
-                <li key={i} className="flex items-center justify-between text-sm py-1">
-                  <span className="text-gov-muted truncate mr-2">{m.descripcion}</span>
-                  <span className="text-xs text-gov-muted shrink-0">
-                    {m.creado_en ? new Date(m.creado_en).toLocaleDateString() : ''}
-                  </span>
-                </li>
+          <h3 className="font-semibold text-sm md:text-base mb-4">📅 Próximos Vencimientos</h3>
+          {data?.proximos_vencimientos?.length ? (
+            <div className="space-y-3">
+              {data.proximos_vencimientos.map((v: any, i: number) => (
+                <Link key={i} href={`/expedientes/${v.expediente_id}`} className="flex items-center justify-between p-3 rounded-lg border border-gov-border hover:bg-gray-50 transition-colors">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{v.expediente_numero}</p>
+                    <p className="text-xs text-gov-muted truncate">{v.descripcion || v.tipo}</p>
+                  </div>
+                  <div className="text-right shrink-0 ml-2">
+                    <p className="text-sm font-semibold" style={{ color: v.dias_restantes <= 7 ? '#dc2626' : '#1e3a5f' }}>
+                      {v.dias_restantes} días
+                    </p>
+                    <p className="text-xs text-gov-muted">{new Date(v.fecha).toLocaleDateString()}</p>
+                  </div>
+                </Link>
               ))}
-            </ul>
-          ) : (
-            <p className="text-sm text-gov-muted py-4 text-center">Sin actividad reciente</p>
-          )}
+            </div>
+          ) : <p className="text-sm text-gov-muted py-4 text-center">Sin próximos vencimientos</p>}
         </div>
 
+        {/* CASOS POR TIPO */}
         <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4">Acceso Rápido</h3>
-          <div className="space-y-3">
-            <Link href="/expedientes" className="block p-3 md:p-4 rounded-lg border border-gov-border hover:bg-gray-50 transition-colors active:bg-gray-100">
-              <span className="font-medium text-sm">📁 Ver Expedientes</span>
-              <p className="text-xs text-gov-muted mt-0.5">Lista completa de expedientes</p>
-            </Link>
-            <RoleGate role="abogado">
-              <Link href="/expedientes/nuevo" className="block p-3 md:p-4 rounded-lg border border-gov-border hover:bg-gray-50 transition-colors active:bg-gray-100">
-                <span className="font-medium text-sm">➕ Nuevo Expediente</span>
-                <p className="text-xs text-gov-muted mt-0.5">Registrar un nuevo caso</p>
-              </Link>
-            </RoleGate>
-            <Link href="/clientes" className="block p-3 md:p-4 rounded-lg border border-gov-border hover:bg-gray-50 transition-colors active:bg-gray-100">
-              <span className="font-medium text-sm">👥 Clientes</span>
-              <p className="text-xs text-gov-muted mt-0.5">Directorio de clientes</p>
-            </Link>
-          </div>
+          <h3 className="font-semibold text-sm md:text-base mb-4">📊 Casos por Tipo</h3>
+          {data?.casos_por_tipo?.length ? (
+            <div className="space-y-3">
+              {data.casos_por_tipo.map((t: any, i: number) => {
+                const total = data?.total_expedientes || 1
+                const pct = Math.round((t.count / total) * 100)
+                return (
+                  <div key={i}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="truncate">{t.tipo}</span>
+                      <span className="font-medium">{t.count}</span>
+                    </div>
+                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-gov-blue rounded-full transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          ) : <p className="text-sm text-gov-muted py-4 text-center">Sin datos</p>}
         </div>
       </div>
-    </div>
-  )
-}
 
-function SkeletonHeader() {
-  return (
-    <div className="mb-6 md:mb-8 animate-pulse">
-      <div className="h-7 md:h-8 bg-gray-200 rounded w-48 mb-2" />
-      <div className="h-4 bg-gray-200 rounded w-64" />
+      {/* ACTIVIDAD RECIENTE */}
+      <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
+        <h3 className="font-semibold text-sm md:text-base mb-4">⚡ Actividad Reciente</h3>
+        {data?.ultimos_movimientos?.length ? (
+          <div className="divide-y divide-gov-border">
+            {data.ultimos_movimientos.map((m: any, i: number) => (
+              <div key={i} className="py-3 flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="text-sm truncate">{m.descripcion}</p>
+                  <p className="text-xs text-gov-muted">{m.expediente_numero}</p>
+                </div>
+                <span className="text-xs text-gov-muted shrink-0">{new Date(m.creado_en).toLocaleString()}</span>
+              </div>
+            ))}
+          </div>
+        ) : <p className="text-sm text-gov-muted py-4 text-center">Sin actividad reciente</p>}
+      </div>
+
+      {/* ACCESO RÁPIDO */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Link href="/expedientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
+          <span className="font-medium text-sm">📁 Ver Expedientes</span>
+          <p className="text-xs text-gov-muted mt-0.5">Lista completa</p>
+        </Link>
+        <RoleGate role="abogado">
+          <Link href="/expedientes/nuevo" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
+            <span className="font-medium text-sm">➕ Nuevo Expediente</span>
+            <p className="text-xs text-gov-muted mt-0.5">Registrar un caso</p>
+          </Link>
+        </RoleGate>
+        <Link href="/clientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
+          <span className="font-medium text-sm">👥 Clientes</span>
+          <p className="text-xs text-gov-muted mt-0.5">Directorio</p>
+        </Link>
+      </div>
     </div>
   )
 }

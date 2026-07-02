@@ -70,6 +70,20 @@ export const api = {
     remover: (id: number, usuarioId: number) =>
       request(`/api/expedientes/${id}/usuarios/${usuarioId}`, { method: 'DELETE' }),
     downloadUrl: (id: number) => `${API}/api/expedientes/${id}/download`,
+    notas: {
+      list: (id: number) => request(`/api/expedientes/${id}/notas`),
+      create: (id: number, contenido: string) =>
+        request(`/api/expedientes/${id}/notas`, { method: 'POST', body: JSON.stringify({ contenido }) }),
+    },
+    fechas: {
+      list: (id: number) => request(`/api/expedientes/${id}/fechas`),
+      create: (id: number, data: any) =>
+        request(`/api/expedientes/${id}/fechas`, { method: 'POST', body: JSON.stringify(data) }),
+      delete: (id: number, fechaId: number) =>
+        request(`/api/expedientes/${id}/fechas/${fechaId}`, { method: 'DELETE' }),
+    },
+    actividades: (id: number) => request(`/api/expedientes/${id}/actividades`),
+    vencimientos: () => request('/api/expedientes/proximos/vencimientos'),
   },
 
   clientes: {
