@@ -48,6 +48,7 @@ export const api = {
     }),
 
   me: () => request('/api/auth/me'),
+  usuarios: () => request('/api/auth/usuarios'),
 
   expedientes: {
     list: (params?: { search?: string; estatus?: string; page?: number }) => {
@@ -63,6 +64,12 @@ export const api = {
       request('/api/expedientes', { method: 'POST', body: JSON.stringify(data) }),
     update: (id: number, data: any) =>
       request(`/api/expedientes/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    usuarios: (id: number) => request(`/api/expedientes/${id}/usuarios`),
+    asignar: (id: number, usuarioId: number) =>
+      request(`/api/expedientes/${id}/usuarios?usuario_id=${usuarioId}`, { method: 'POST' }),
+    remover: (id: number, usuarioId: number) =>
+      request(`/api/expedientes/${id}/usuarios/${usuarioId}`, { method: 'DELETE' }),
+    downloadUrl: (id: number) => `${API}/api/expedientes/${id}/download`,
   },
 
   clientes: {
