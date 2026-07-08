@@ -11,6 +11,7 @@ interface Expediente {
   numero: string
   folio: string | null
   cliente_nombre: string
+  juzgado: string
   sello?: string
   tipo: string
   estatus: string
