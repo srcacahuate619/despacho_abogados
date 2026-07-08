@@ -18,8 +18,8 @@ const config: Config = {
           900: '#0a1929',
         },
         gov: {
-          blue: '#D4AF37',
-          gold: '#C5A059',
+          blue: '#996515',
+          gold: '#8B6508',
           gray: '#111827',
           border: '#374151',
           text: '#f9fafb',
