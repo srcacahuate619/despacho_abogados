@@ -35,7 +35,7 @@ export default function LoginPage() {
           <p className="text-blue-200 text-sm mt-1">Sistema de Gestión de Expedientes</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <div className="card p-6 md:p-8">
           <h2 className="text-lg font-semibold mb-5">Iniciar Sesión</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">

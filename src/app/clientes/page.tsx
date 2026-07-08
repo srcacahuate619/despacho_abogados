@@ -64,7 +64,7 @@ export default function ClientesPage() {
       </div>
 
       {showForm && (
-        <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6 mb-4 md:mb-6">
+        <div className="card p-4 md:p-6 mb-4 md:mb-6">
           <h3 className="font-semibold text-sm mb-4">Nuevo Cliente</h3>
           <form onSubmit={handleCreate} className="flex flex-col md:flex-row gap-2 md:gap-3">
             <input className="input-field flex-1" placeholder="Nombre *" value={newName} onChange={(e) => setNewName(e.target.value)} required />
@@ -75,7 +75,7 @@ export default function ClientesPage() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-gov-border shadow-sm mb-4 md:mb-6">
+      <div className="card mb-4 md:mb-6">
         <div className="p-3 md:p-4">
           <input
             className="input-field"
@@ -89,13 +89,13 @@ export default function ClientesPage() {
       {loading ? (
         <TableSkeleton rows={4} />
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gov-border shadow-sm p-12 text-center">
+        <div className="card p-12 text-center">
           <p className="text-gov-muted text-sm">No hay clientes</p>
         </div>
       ) : (
         <>
           {/* Desktop table */}
-          <div className="hide-mobile bg-white rounded-xl border border-gov-border shadow-sm overflow-hidden">
+          <div className="hide-mobile card overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gov-border bg-gray-50">
@@ -119,7 +119,7 @@ export default function ClientesPage() {
           {/* Mobile cards */}
           <div className="md:hidden space-y-3">
             {items.map((c) => (
-              <div key={c.id} className="bg-white rounded-xl border border-gov-border shadow-sm p-4">
+              <div key={c.id} className="card p-4">
                 <p className="font-semibold text-sm mb-2">{c.nombre}</p>
                 <div className="space-y-1 text-sm text-gov-muted">
                   <p>📞 {c.telefono || '—'}</p>

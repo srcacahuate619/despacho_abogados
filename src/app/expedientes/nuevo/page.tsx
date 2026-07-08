@@ -53,7 +53,7 @@ export default function NuevoExpedientePage() {
       </button>
       <h1 className="text-xl md:text-2xl font-bold mb-6">Nuevo Expediente</h1>
 
-      <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
+      <div className="card p-4 md:p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1.5">Número de Expediente *</label>

@@ -308,5 +308,5 @@ export default function ExpedienteDetailPage() {
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6"><h3 className="font-semibold text-sm md:text-base mb-4">{title}</h3>{children}</div>
+  return <div className="card p-4 md:p-6"><h3 className="font-semibold text-sm md:text-base mb-4">{title}</h3>{children}</div>
 }

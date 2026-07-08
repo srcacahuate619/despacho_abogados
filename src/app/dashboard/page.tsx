@@ -47,7 +47,7 @@ export default function DashboardPage() {
       {/* STAT CARDS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
+          <div key={s.label} className="card p-4 md:p-6 hover:border-gov-gold/50 transition-colors">
             <p className="text-xs md:text-sm text-gov-muted">{s.label}</p>
             <p className={`text-2xl md:text-3xl font-bold mt-1 ${s.color}`}>{s.value}</p>
           </div>
@@ -56,18 +56,18 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
         {/* PRÓXIMOS VENCIMIENTOS */}
-        <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><CalendarClock className="w-4 h-4" /> Próximos Vencimientos</h3>
+        <div className="card p-4 md:p-6">
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><CalendarClock className="w-4 h-4 text-gov-gold" /> Próximos Vencimientos</h3>
           {data?.proximos_vencimientos?.length ? (
             <div className="space-y-3">
               {data.proximos_vencimientos.map((v: any, i: number) => (
-                <Link key={i} href={`/expedientes/${v.expediente_id}`} className="flex items-center justify-between p-3 rounded-lg border border-gov-border hover:bg-gray-50 transition-colors">
+                <Link key={i} href={`/expedientes/${v.expediente_id}`} className="flex items-center justify-between p-3 rounded-lg border border-gov-border hover:bg-gray-800 transition-colors">
                   <div className="min-w-0">
                     <p className="text-sm font-medium truncate">{v.expediente_numero}</p>
                     <p className="text-xs text-gov-muted truncate">{v.descripcion || v.tipo}</p>
                   </div>
                   <div className="text-right shrink-0 ml-2">
-                    <p className="text-sm font-semibold" style={{ color: v.dias_restantes <= 7 ? '#dc2626' : '#1e3a5f' }}>
+                    <p className="text-sm font-semibold" style={{ color: v.dias_restantes <= 7 ? '#dc2626' : '#D4AF37' }}>
                       {v.dias_restantes} días
                     </p>
                     <p className="text-xs text-gov-muted">{new Date(v.fecha).toLocaleDateString()}</p>
@@ -79,14 +79,14 @@ export default function DashboardPage() {
         </div>
 
         {/* CASOS POR MATERIA */}
-        <div className="card p-6 col-span-1 md:col-span-2 shadow-md hover:shadow-lg transition-shadow bg-black/40 border-gov-gold/20">
-          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2 text-gov-gold"><BarChart3 className="w-4 h-4" /> Casos por Materia</h3>
+        <div className="card p-4 md:p-6">
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><BarChart3 className="w-4 h-4 text-gov-gold" /> Casos por Materia</h3>
           {data?.casos_por_tipo?.length ? (
             <div className="grid grid-cols-2 gap-4">
               {data.casos_por_tipo.map((t: any, i: number) => (
-                <div key={i} className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gov-border">
+                <div key={i} className="flex items-center justify-between px-3 py-2 bg-gray-800 rounded-lg border border-gov-border">
                   <span className="text-sm font-medium">{t.tipo}</span>
-                  <span className="text-xs font-bold text-white bg-gov-blue rounded-full px-2 py-0.5 min-w-[24px] text-center">
+                  <span className="text-xs font-bold text-black bg-gov-gold rounded-full px-2 py-0.5 min-w-[24px] text-center">
                     {t.count}
                   </span>
                 </div>
@@ -97,8 +97,8 @@ export default function DashboardPage() {
       </div>
 
       {/* ACTIVIDAD RECIENTE */}
-      <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><Activity className="w-4 h-4" /> Actividad Reciente</h3>
+      <div className="card p-4 md:p-6">
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><Activity className="w-4 h-4 text-gov-gold" /> Actividad Reciente</h3>
         {data?.ultimos_movimientos?.length ? (
           <div className="divide-y divide-gov-border">
             {data.ultimos_movimientos.map((m: any, i: number) => (
@@ -116,18 +116,18 @@ export default function DashboardPage() {
 
       {/* ACCESO RÁPIDO */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Link href="/expedientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-          <span className="font-medium text-sm flex items-center gap-2"><FolderKanban className="w-4 h-4" /> Ver Expedientes</span>
+        <Link href="/expedientes" className="card p-4 hover:bg-gray-800 transition-colors block border-gov-border">
+          <span className="font-medium text-sm flex items-center gap-2 text-gov-gold"><FolderKanban className="w-4 h-4" /> Ver Expedientes</span>
           <p className="text-xs text-gov-muted mt-0.5">Lista completa</p>
         </Link>
         <RoleGate role="abogado">
-          <Link href="/expedientes/nuevo" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-            <span className="font-medium text-sm flex items-center gap-2"><Plus className="w-4 h-4" /> Nuevo Expediente</span>
+          <Link href="/expedientes/nuevo" className="card p-4 hover:bg-gray-800 transition-colors block border-gov-border">
+            <span className="font-medium text-sm flex items-center gap-2 text-gov-gold"><Plus className="w-4 h-4" /> Nuevo Expediente</span>
             <p className="text-xs text-gov-muted mt-0.5">Registrar un caso</p>
           </Link>
         </RoleGate>
-        <Link href="/clientes" className="block p-4 rounded-xl border border-gov-border bg-white hover:bg-gray-50 transition-colors shadow-sm">
-          <span className="font-medium text-sm flex items-center gap-2"><Users className="w-4 h-4" /> Clientes</span>
+        <Link href="/clientes" className="card p-4 hover:bg-gray-800 transition-colors block border-gov-border">
+          <span className="font-medium text-sm flex items-center gap-2 text-gov-gold"><Users className="w-4 h-4" /> Clientes</span>
           <p className="text-xs text-gov-muted mt-0.5">Directorio</p>
         </Link>
       </div>

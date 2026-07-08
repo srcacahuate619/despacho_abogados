@@ -56,7 +56,7 @@ export default function ExpedientesPage() {
         </RoleGate>
       </div>
 
-      <div className="bg-white rounded-xl border border-gov-border shadow-sm mb-4 md:mb-6">
+      <div className="card mb-4 md:mb-6">
         <div className="p-3 md:p-4 flex flex-col md:flex-row gap-2 md:gap-3">
           <input
             className="input-field flex-1"
@@ -81,7 +81,7 @@ export default function ExpedientesPage() {
       {loading ? (
         <TableSkeleton rows={5} />
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gov-border shadow-sm p-12 text-center">
+        <div className="card p-12 text-center">
           <p className="text-gov-muted mb-3 text-sm">No hay expedientes</p>
           <RoleGate role="abogado">
             <Link href="/expedientes/nuevo" className="text-sm text-gov-blue underline">Crear primer expediente</Link>
@@ -90,7 +90,7 @@ export default function ExpedientesPage() {
       ) : (
         <>
           {/* Desktop table */}
-          <div className="hide-mobile bg-white rounded-xl border border-gov-border shadow-sm overflow-hidden">
+          <div className="hide-mobile card overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gov-border bg-gray-50">
@@ -139,7 +139,7 @@ export default function ExpedientesPage() {
               <Link
                 key={exp.id}
                 href={`/expedientes/${exp.id}`}
-                className="block bg-white rounded-xl border border-gov-border shadow-sm p-4 active:bg-gray-50 transition-colors"
+                className="block card p-4 active:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-semibold text-gov-blue">{exp.numero}</span>
