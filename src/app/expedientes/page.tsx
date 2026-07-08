@@ -9,6 +9,7 @@ import { TableSkeleton } from '@/components/Skeleton'
 interface Expediente {
   id: number
   numero: string
+  folio: string | null
   cliente_nombre: string
   juzgado: string
   tipo: string
@@ -93,6 +94,7 @@ export default function ExpedientesPage() {
               <thead>
                 <tr className="border-b border-gov-border bg-gray-50">
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">No.</th>
+                  <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Folio Interno</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Cliente</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Juzgado</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Tipo</th>
@@ -108,6 +110,7 @@ export default function ExpedientesPage() {
                         {exp.numero}
                       </Link>
                     </td>
+                    <td className="p-4 text-sm text-gov-muted">{exp.folio || '-'}</td>
                     <td className="p-4 text-sm">{exp.cliente_nombre}</td>
                     <td className="p-4 text-sm text-gov-muted">{exp.juzgado}</td>
                     <td className="p-4 text-sm text-gov-muted">{exp.tipo}</td>
@@ -136,6 +139,10 @@ export default function ExpedientesPage() {
                   <span className={badgeClass(exp.estatus)}>{exp.estatus}</span>
                 </div>
                 <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gov-muted">Folio</span>
+                    <span>{exp.folio || '—'}</span>
+                  </div>
                   <div className="flex justify-between">
                     <span className="text-gov-muted">Cliente</span>
                     <span>{exp.cliente_nombre}</span>

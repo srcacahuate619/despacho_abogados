@@ -10,6 +10,7 @@ export default function NuevoExpedientePage() {
   const { toast } = useToast()
   const [form, setForm] = useState({
     numero: '',
+    folio: '',
     cliente_id: '',
     juzgado: '',
     tipo: '',
@@ -61,6 +62,16 @@ export default function NuevoExpedientePage() {
               value={form.numero}
               onChange={(e) => setForm({ ...form, numero: e.target.value })}
               required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1.5">Folio Interno (Opcional)</label>
+            <input
+              className="input-field"
+              placeholder="Ej: FOL-2026-01"
+              value={form.folio}
+              onChange={(e) => setForm({ ...form, folio: e.target.value })}
             />
           </div>
 

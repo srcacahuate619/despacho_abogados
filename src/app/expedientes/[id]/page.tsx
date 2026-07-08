@@ -10,7 +10,7 @@ import { isAdmin, getUser } from '@/lib/auth'
 import { Download, X, FileText, Phone, Mail, MapPin, Plus, Calendar, MessageSquareText } from 'lucide-react'
 
 interface Detail {
-  id: number; numero: string
+  id: number; numero: string; folio: string | null
   cliente: { id: number; nombre: string; telefono: string; email: string; direccion: string }
   juzgado: string; tipo: string; estatus: string
   partes: any[]; documentos: any[]; usuarios_asignados: any[]
@@ -132,6 +132,7 @@ export default function ExpedienteDetailPage() {
           {/* DATOS GENERALES */}
           <Section title="Datos Generales">
             <dl className="grid grid-cols-2 gap-3 md:gap-4 text-sm">
+              <div><dt className="text-gov-muted text-xs">Folio Interno</dt><dd className="font-medium">{exp.folio || '—'}</dd></div>
               <div><dt className="text-gov-muted text-xs">Juzgado</dt><dd className="font-medium">{exp.juzgado || '—'}</dd></div>
               <div><dt className="text-gov-muted text-xs">Tipo</dt><dd className="font-medium">{exp.tipo || '—'}</dd></div>
               <div><dt className="text-gov-muted text-xs">Creado</dt><dd className="font-medium">{new Date(exp.creado_en).toLocaleDateString()}</dd></div>
