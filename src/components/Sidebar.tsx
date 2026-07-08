@@ -34,7 +34,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
   const navContent = (
     <>
       <div className="p-5 border-b border-primary-600">
-        <h1 className="text-lg font-bold tracking-tight">LegalDesk</h1>
+        <h1 className="text-lg font-bold tracking-tight">Trejo & Asociados</h1>
         <p className="text-[11px] text-blue-200 mt-0.5">Sistema de Expedientes</p>
       </div>
 

@@ -10,8 +10,7 @@ import { isAdmin, getUser } from '@/lib/auth'
 import { Download, X, FileText, Phone, Mail, MapPin, Plus, Calendar, MessageSquareText } from 'lucide-react'
 
 interface Detail {
-  id: number; numero: string; folio: string | null
-  cliente: { id: number; nombre: string; telefono: string; email: string; direccion: string }
+  id: number; numero: string;  folio?: string; sello?: string; cliente: { id: number; nombre: string; email: string; telefono: string }
   juzgado: string; tipo: string; estatus: string
   partes: any[]; documentos: any[]; usuarios_asignados: any[]
   creado_en: string; actualizado_en: string
@@ -119,12 +118,18 @@ export default function ExpedienteDetailPage() {
       <div className="flex items-start justify-between mb-5">
         <div>
           <button onClick={() => router.push('/expedientes')} className="text-xs md:text-sm text-gov-muted hover:text-gov-blue mb-1 block">← Volver</button>
-          <h1 className="text-xl md:text-2xl font-bold flex items-center gap-3 flex-wrap">
-            {exp.numero}
-            <a href={api.expedientes.downloadUrl(exp.id)} className="text-xs btn-secondary py-1 px-2 inline-flex items-center gap-1" target="_blank"><Download className="w-3 h-3" /> Descargar PDF</a>
-          </h1>
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-bold">{exp.numero}</h2>
+            {exp.sello && (
+              <span className="badge bg-gov-gold/10 text-gov-gold border border-gov-gold/20 px-3 py-1 text-sm font-semibold">{exp.sello}</span>
+            )}
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+              exp.estatus === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+            }`}>{exp.estatus}</span>
+          </div>
+          <p className="text-gov-muted mt-1">{exp.cliente.nombre}</p>
         </div>
-        <span className={badgeClass(exp.estatus)}>{exp.estatus}</span>
+        <a href={api.expedientes.downloadUrl(exp.id)} className="text-xs btn-secondary py-1 px-2 inline-flex items-center gap-1" target="_blank"><Download className="w-3 h-3" /> Descargar PDF</a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
@@ -133,8 +138,8 @@ export default function ExpedienteDetailPage() {
           <Section title="Datos Generales">
             <dl className="grid grid-cols-2 gap-3 md:gap-4 text-sm">
               <div><dt className="text-gov-muted text-xs">Folio Interno</dt><dd className="font-medium">{exp.folio || '—'}</dd></div>
-              <div><dt className="text-gov-muted text-xs">Juzgado</dt><dd className="font-medium">{exp.juzgado || '—'}</dd></div>
-              <div><dt className="text-gov-muted text-xs">Tipo</dt><dd className="font-medium">{exp.tipo || '—'}</dd></div>
+              <div><dt className="text-gov-muted text-xs">Juzgado</dt><dd className="font-medium">{exp.juzgado || '-'}</dd></div>
+              <div><dt className="text-gov-muted text-xs">Materia</dt><dd className="font-medium">{exp.tipo || '-'}</dd></div>
               <div><dt className="text-gov-muted text-xs">Creado</dt><dd className="font-medium">{new Date(exp.creado_en).toLocaleDateString()}</dd></div>
               <div><dt className="text-gov-muted text-xs">Actualizado</dt><dd className="font-medium">{new Date(exp.actualizado_en).toLocaleDateString()}</dd></div>
             </dl>

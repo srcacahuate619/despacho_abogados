@@ -18,12 +18,12 @@ const config: Config = {
           900: '#0a1929',
         },
         gov: {
-          blue: '#1e3a5f',
-          gold: '#c4a35a',
-          gray: '#f8f9fa',
-          border: '#e5e7eb',
-          text: '#1f2937',
-          muted: '#6b7280',
+          blue: '#c4a35a', // Renamed internally, now acts as gold
+          gold: '#d4b36a',
+          gray: '#111827',
+          border: '#374151',
+          text: '#f9fafb',
+          muted: '#9ca3af',
         },
       },
     },

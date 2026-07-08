@@ -12,6 +12,7 @@ export default function NuevoExpedientePage() {
     numero: '',
     folio: '',
     cliente_id: '',
+    sello: 'Judicial',
     juzgado: '',
     tipo: '',
   })
@@ -99,14 +100,32 @@ export default function NuevoExpedientePage() {
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1.5">Tipo</label>
-            <input
-              className="input-field"
-              placeholder="Ej: Juicio Ordinario Civil"
-              value={form.tipo}
-              onChange={(e) => setForm({ ...form, tipo: e.target.value })}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Materia</label>
+              <input 
+                type="text" 
+                className="input-field" 
+                value={form.tipo}
+                onChange={(e) => setForm({ ...form, tipo: e.target.value })}
+                placeholder="Ej. Civil, Penal, Mercantil..."
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Sello (Clasificación)</label>
+              <select 
+                className="input-field" 
+                value={form.sello}
+                onChange={(e) => setForm({ ...form, sello: e.target.value })}
+              >
+                <option value="Judicial">Judicial</option>
+                <option value="Extrajudicial">Extrajudicial</option>
+                <option value="Notaría">Notaría</option>
+                <option value="Internos">Internos</option>
+                <option value="Particulares">Particulares</option>
+              </select>
+            </div>
           </div>
 
           {error && (

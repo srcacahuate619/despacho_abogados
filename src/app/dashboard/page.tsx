@@ -78,11 +78,11 @@ export default function DashboardPage() {
           ) : <p className="text-sm text-gov-muted py-4 text-center">Sin próximos vencimientos</p>}
         </div>
 
-        {/* CASOS POR TIPO */}
-        <div className="bg-white rounded-xl border border-gov-border shadow-sm p-4 md:p-6">
-          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2"><BarChart3 className="w-4 h-4" /> Casos por Tipo</h3>
+        {/* CASOS POR MATERIA */}
+        <div className="card p-6 col-span-1 md:col-span-2 shadow-md hover:shadow-lg transition-shadow bg-black/40 border-gov-gold/20">
+          <h3 className="font-semibold text-sm md:text-base mb-4 flex items-center gap-2 text-gov-gold"><BarChart3 className="w-4 h-4" /> Casos por Materia</h3>
           {data?.casos_por_tipo?.length ? (
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 gap-4">
               {data.casos_por_tipo.map((t: any, i: number) => (
                 <div key={i} className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-gov-border">
                   <span className="text-sm font-medium">{t.tipo}</span>

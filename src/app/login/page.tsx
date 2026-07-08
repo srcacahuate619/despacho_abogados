@@ -31,7 +31,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-gov-blue to-primary-900 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-white">LegalDesk</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Trejo & Asociados</h1>
           <p className="text-blue-200 text-sm mt-1">Sistema de Gestión de Expedientes</p>
         </div>
 
@@ -106,7 +106,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-blue-300 text-[11px] mt-6">
-          LegalDesk v1.0 &mdash; Acceso restringido
+          Trejo & Asociados v1.0 &mdash; Acceso restringido
         </p>
       </div>
     </div>

@@ -42,7 +42,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
               </svg>
             </button>
             <div>
-              <h1 className="text-sm font-bold">LegalDesk</h1>
+              <h1 className="text-sm font-bold">Trejo & Asociados</h1>
               <p className="text-[10px] text-blue-200">Sistema de Expedientes</p>
             </div>
           </header>

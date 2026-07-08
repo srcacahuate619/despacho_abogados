@@ -3,7 +3,7 @@ import './globals.css'
 import LayoutWrapper from '@/components/LayoutWrapper'
 
 export const metadata: Metadata = {
-  title: 'LegalDesk — Sistema de Expedientes',
+  title: 'Trejo & Asociados — Sistema de Expedientes',
   description: 'Plataforma de gestión de expedientes legales',
 }
 

@@ -11,7 +11,7 @@ interface Expediente {
   numero: string
   folio: string | null
   cliente_nombre: string
-  juzgado: string
+  sello?: string
   tipo: string
   estatus: string
   creado_en: string
@@ -97,7 +97,8 @@ export default function ExpedientesPage() {
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Folio Interno</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Cliente</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Juzgado</th>
-                  <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Tipo</th>
+                  <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Sello</th>
+                  <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Materia</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Estatus</th>
                   <th className="text-left p-4 text-xs font-medium text-gov-muted uppercase">Creado</th>
                 </tr>
@@ -113,6 +114,11 @@ export default function ExpedientesPage() {
                     <td className="p-4 text-sm text-gov-muted">{exp.folio || '-'}</td>
                     <td className="p-4 text-sm">{exp.cliente_nombre}</td>
                     <td className="p-4 text-sm text-gov-muted">{exp.juzgado}</td>
+                    <td className="p-4">
+                      {exp.sello ? (
+                        <span className="badge bg-gov-gold/10 text-gov-gold border border-gov-gold/20">{exp.sello}</span>
+                      ) : '-'}
+                    </td>
                     <td className="p-4 text-sm text-gov-muted">{exp.tipo}</td>
                     <td className="p-4">
                       <span className={badgeClass(exp.estatus)}>{exp.estatus}</span>
@@ -151,9 +157,17 @@ export default function ExpedientesPage() {
                     <span className="text-gov-muted">Juzgado</span>
                     <span className="text-right">{exp.juzgado || '—'}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gov-muted">Tipo</span>
-                    <span className="text-right">{exp.tipo || '—'}</span>
+                  <div className="flex justify-between items-center text-sm border-t border-gov-border pt-2 mt-2">
+                    <span className="text-gov-muted">Sello</span>
+                    <span className="text-right">
+                      {exp.sello ? (
+                        <span className="badge bg-gov-gold/10 text-gov-gold border border-gov-gold/20">{exp.sello}</span>
+                      ) : '-'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm border-t border-gov-border pt-2 mt-2">
+                    <span className="text-gov-muted">Materia</span>
+                    <span className="text-right">{exp.tipo || '-'}</span>
                   </div>
                 </div>
               </Link>

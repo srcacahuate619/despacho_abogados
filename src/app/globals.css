@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gov-text;
+  @apply bg-black text-gov-text;
 }
 
 .sidebar-link {
-  @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors;
+  @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors text-gray-300;
 }
 
 .sidebar-link:hover {
-  @apply bg-primary-700 text-white;
+  @apply bg-gov-blue text-black;
 }
 
 .sidebar-link.active {
-  @apply bg-primary-700 text-white;
+  @apply bg-gov-blue text-black;
 }
 
 .card {
-  @apply bg-white rounded-xl border border-gov-border shadow-sm;
+  @apply bg-gray-900 rounded-xl border border-gov-border shadow-sm;
 }
 
 .btn-primary {
-  @apply bg-gov-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply bg-gov-blue text-black px-4 py-2 rounded-lg text-sm font-bold hover:bg-gov-gold transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .btn-secondary {
-  @apply border border-gov-border text-gov-text px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors disabled:opacity-50;
+  @apply border border-gov-border text-gov-text px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50;
 }
 
 .btn-danger {
@@ -35,7 +35,7 @@ body {
 }
 
 .input-field {
-  @apply w-full border border-gov-border rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gov-blue focus:ring-1 focus:ring-gov-blue transition-colors;
+  @apply w-full border border-gov-border bg-gray-900 text-white rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gov-blue focus:ring-1 focus:ring-gov-blue transition-colors;
 }
 
 .badge {
