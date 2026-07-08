@@ -10,7 +10,7 @@ import { isAdmin, getUser } from '@/lib/auth'
 import { Download, X, FileText, Phone, Mail, MapPin, Plus, Calendar, MessageSquareText } from 'lucide-react'
 
 interface Detail {
-  id: number; numero: string;  folio?: string; sello?: string; cliente: { id: number; nombre: string; email: string; telefono: string }
+  id: number; numero: string;  folio?: string; sello?: string; cliente: { id: number; nombre: string; email: string; telefono: string; direccion: string }
   juzgado: string; tipo: string; estatus: string
   partes: any[]; documentos: any[]; usuarios_asignados: any[]
   creado_en: string; actualizado_en: string
